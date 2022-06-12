@@ -26,15 +26,28 @@ public class NewsStore {
   /**
    * 新增新闻,成功返回true，失败返回false
    * */
-  public static void addNews(News news){
+  private static void addNews(News news,boolean isSend){
     List<News> newsList = hashMap.get(news.getType());
     if (newsList.contains(news)){
       return;
     }
-    if (CollectionUtil.isNotEmpty(newsList)){
+    if (isSend && CollectionUtil.isNotEmpty(newsList)){
       doNotify(news);
     }
     newsList.add(news);
+  }
+
+  /**
+   * 新增新闻,成功返回true，失败返回false
+   * */
+  public static void addNewsList(List<News> newsSet,String type){
+    boolean notifyFlag = true;
+    List<News> newsList = hashMap.get(type);
+    if (CollectionUtil.isEmpty(newsList)){
+      notifyFlag = false;
+    }
+    boolean finalNotifyFlag = notifyFlag;
+    newsSet.forEach(news -> addNews(news, finalNotifyFlag));
   }
 
   private static void doNotify(News news) {

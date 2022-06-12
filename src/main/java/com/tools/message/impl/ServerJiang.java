@@ -59,7 +59,6 @@ public class ServerJiang extends MessageNotify {
         try {
             HttpResponse response = client.execute(post);
             String res = EntityUtils.toString(response.getEntity());
-            System.out.println(res);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {

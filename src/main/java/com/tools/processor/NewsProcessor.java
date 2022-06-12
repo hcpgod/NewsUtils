@@ -54,8 +54,9 @@ public class NewsProcessor implements PageProcessor {
       news.setNewsTitle(title);
       news.setType(typeCode);
       news.setSite(siteCode);
-      NewsStore.addNews(news);
+      newsList.add(news);
     }
+    NewsStore.addNewsList(newsList,typeCode);
   }
 
   private List<Selectable>  parseList(Page page, SiteEnum siteEnum) {
