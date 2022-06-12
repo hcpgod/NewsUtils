@@ -31,13 +31,13 @@ public class Run {
 
     public static void main(String[] args) {
         // 初始化配置
-        initConfig(args);
+        initConfig();
         // 开启页面抓取任务
         ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
         scheduled.scheduleAtFixedRate(() -> doTask(), 0, Intervals, TimeUnit.SECONDS);
     }
 
-    private static void initConfig(String[] args) {
+    private static void initConfig() {
         // 配置间隔时间
         Logger logger = LoggerFactory.getLogger(Run.class);
         String interval = System.getenv("Interval");
@@ -64,8 +64,8 @@ public class Run {
         News news = new News();
         news.setNewsTitle("幣安將上線AVAXBUSD 1-20倍永續合約(这是一条测试通知)");
         news.setNewsUrl("https://www.binance.com/zh-CN/support/announcement/c6f4b9ca32374bd488af6fc050205bca");
-        news.setSite(SiteEnum.BINANCE48.getSiteName());
-        news.setType(SiteEnum.BINANCE48.getTypename());
+        news.setSite(SiteEnum.BINANCE.getSiteName());
+        news.setType(SiteEnum.BINANCE.getTypename());
         messageNotify.sendMessage(news);
     }
 
@@ -74,8 +74,6 @@ public class Run {
         siteList.add("https://support.mexc.com/hc/en-001/sections/360000547811-New-Listings");
         siteList.add("https://help.hoorhi.shop/hc/zh-cn/sections/6541592498201-%E6%96%B0%E5%B8%81%E4%B8%8A%E7%BA%BF");
         siteList.add("https://www.binance.com/zh-CN/support/announcement/c-48?navId=48");
-        siteList.add("https://www.binance.com/zh-CN/support/announcement/c-49?navId=49");
-        siteList.add("https://www.binance.com/zh-CN/support/announcement/c-50?navId=50");
         // 解析器
         Spider spider = Spider.create(new NewsProcessor());
         spider.setDownloader(new DownloadFile());

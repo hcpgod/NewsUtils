@@ -14,14 +14,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SiteEnum {
 
-  BINANCE48("币安", "binance","数字货币及交易对上新","48","https://www.binance.com",50),
-
-
-  BINANCE49("币安", "binance","币安最新动态","49","https://www.binance.com",50),
-
-
-  BINANCE50("币安", "binance","法币及交易对上新","50","https://www.binance.com",50),
-
+  BINANCE("币安", "binance","数字货币及交易对上新","48","https://www.binance.com",50),
 
   HOO("虎符", "hoo","新币上线","51","https://help.hoorhi.shop",50),
 
@@ -47,14 +40,8 @@ public enum SiteEnum {
        if (url.indexOf(MEXC.getDomain())>-1){
            return MEXC;
        }
-       if (url.indexOf(BINANCE48.typeCode)>-1){
-           return BINANCE48;
-       }
-       if (url.indexOf(BINANCE49.typeCode)>-1){
-           return BINANCE49;
-       }
-       if (url.indexOf(BINANCE50.typeCode)>-1){
-           return BINANCE50;
+       if (url.indexOf(BINANCE.getDomain())>-1){
+           return BINANCE;
        }
        return null;
    }
