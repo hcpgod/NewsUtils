@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Run {
 
-    public static int Intervals = 5;
+    public static int Intervals = 10;
 
     public static void main(String[] args) {
         // 初始化配置

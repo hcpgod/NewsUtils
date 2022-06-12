@@ -46,7 +46,7 @@ public class NewsStore {
     }
     boolean notifyFlag = true;
     List<News> newsList = hashMap.get(type);
-    if (CollectionUtil.isEmpty(newsList)){
+    if (CollectionUtil.isEmpty(newsList) || newsSet.size()>10){
       notifyFlag = false;
     }
     boolean finalNotifyFlag = notifyFlag;
