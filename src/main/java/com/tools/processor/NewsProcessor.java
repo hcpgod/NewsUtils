@@ -66,7 +66,7 @@ public class NewsProcessor implements PageProcessor {
       news.setSite(siteCode);
       newsList.add(news);
     }
-    NewsStore.addNewsList(newsList,typeCode);
+    NewsStore.addNewsList(newsList,SiteEnum.BINANCE.getTypeCode());
   }
 
   private List<News> parseBinance(Page page) {
