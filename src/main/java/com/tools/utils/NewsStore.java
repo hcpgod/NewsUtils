@@ -26,8 +26,8 @@ public class NewsStore {
   /**
    * 新增新闻,成功返回true，失败返回false
    * */
-  private static void addNews(News news,boolean isSend){
-    List<News> newsList = hashMap.get(news.getType());
+  private static void addNews(News news,boolean isSend,String type){
+    List<News> newsList = hashMap.get(type);
     if (newsList.contains(news)){
       return;
     }
@@ -50,7 +50,7 @@ public class NewsStore {
       notifyFlag = false;
     }
     boolean finalNotifyFlag = notifyFlag;
-    newsSet.forEach(news -> addNews(news, finalNotifyFlag));
+    newsSet.forEach(news -> addNews(news, finalNotifyFlag,type));
   }
 
   private static void doNotify(News news) {
