@@ -1,5 +1,6 @@
 package com.tools;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.tools.download.DownloadFile;
 import com.tools.enums.SiteEnum;
 import com.tools.message.MessageNotify;
@@ -7,10 +8,11 @@ import com.tools.message.impl.ServerJiang;
 import com.tools.pojo.News;
 import com.tools.processor.NewsProcessor;
 import com.tools.utils.NewsStore;
+import com.tools.utils.Spider;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +29,32 @@ import java.util.concurrent.TimeUnit;
  */
 public class Run {
 
+    public static Spider spider;
     public static int Intervals = 10;
+
+    static List<String> siteList = new ArrayList<>();
+    static {
+        siteList.add("https://support.mexc.com/hc/en-001/sections/360000547811-New-Listings");
+        siteList.add("https://help.hoorhi.shop/hc/zh-cn/sections/6541592498201-%E6%96%B0%E5%B8%81%E4%B8%8A%E7%BA%BF");
+        siteList.add("https://www.binance.com/zh-CN/support/announcement/c-48?navId=48");
+
+    }
 
     public static void main(String[] args) {
         // 初始化配置
         initConfig();
         // 开启页面抓取任务
+        doTask();
+        // 发放任务任务
         ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
-        scheduled.scheduleAtFixedRate(() -> doTask(), 0, Intervals, TimeUnit.SECONDS);
+        scheduled.scheduleAtFixedRate(() -> addUrlSchedule(), 0, Intervals, TimeUnit.SECONDS);
+
+    }
+
+    private static void addUrlSchedule() {
+        if (spider != null && CollectionUtil.isNotEmpty(siteList)){
+            siteList.forEach(Run::addRequest);
+        }
     }
 
     private static void initConfig() {
@@ -70,14 +90,16 @@ public class Run {
     }
 
     private static void doTask() {
-        List<String> siteList = new ArrayList<>();
-        siteList.add("https://support.mexc.com/hc/en-001/sections/360000547811-New-Listings");
-        siteList.add("https://help.hoorhi.shop/hc/zh-cn/sections/6541592498201-%E6%96%B0%E5%B8%81%E4%B8%8A%E7%BA%BF");
-        siteList.add("https://www.binance.com/zh-CN/support/announcement/c-48?navId=48");
         // 解析器
-        Spider spider = Spider.create(new NewsProcessor());
+        spider = Spider.create(new NewsProcessor());
         spider.setDownloader(new DownloadFile());
-        spider.startUrls(siteList).start();
+        spider.setEmptySleepTime(1000);
+        spider.startUrls(siteList).thread(6).start();
+    }
+
+    public static void addRequest(String url){
+        Request request = new Request(url).setPriority(0).putExtra(Request.CYCLE_TRIED_TIMES, 0);
+        spider.addRequest(request);
     }
 
 }

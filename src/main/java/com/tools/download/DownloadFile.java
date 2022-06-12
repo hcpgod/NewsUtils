@@ -49,14 +49,15 @@ public class DownloadFile extends HttpClientDownloader {
             Page page = Page.fail();
             Page var9;
             try {
+                this.logger.info("开始下载页面，url  {}",request.getUrl());
                 httpResponse = httpClient.execute(requestContext.getHttpUriRequest(), requestContext.getHttpClientContext());
                 page = this.handleResponse(request, request.getCharset() != null ? request.getCharset() : task.getSite().getCharset(), httpResponse, task);
                 this.onSuccess(request);
-                this.logger.info("downloading page success {}", request.getUrl());
+                this.logger.info("页面下载成功， {}", request.getUrl());
                 Page var8 = page;
                 return var8;
             } catch (IOException var13) {
-                this.logger.warn("download page {} error", request.getUrl(), var13);
+                this.logger.warn("页面下载失败，url {} ", request.getUrl(), var13);
                 this.onError(request);
                 var9 = page;
             } finally {

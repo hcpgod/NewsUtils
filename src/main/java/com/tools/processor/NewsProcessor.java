@@ -6,13 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tools.download.DownloadFile;
 import com.tools.enums.SiteEnum;
 import com.tools.pojo.News;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.tools.utils.NewsStore;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +16,9 @@ import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.Selectable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @author hcp
@@ -29,14 +26,14 @@ import us.codecraft.webmagic.selector.Selectable;
 @RequiredArgsConstructor
 public class NewsProcessor implements PageProcessor {
   Logger logger = LoggerFactory.getLogger(DownloadFile.class);
-
+  private final int Intervals = 10000;
   private List<String> codeList;
 
 
   static Site site = Site.me()
-          .addHeader("user-agent","Chrome/102.0.0.0")
+          .addHeader("User-Agent","apifox/1.0.0 (https://www.apifox.cn)")
           .setCharset("utf-8")
-          .setTimeOut(5000);
+          .setTimeOut(10000);
 
   @Override
   public void process(Page page) {
@@ -68,6 +65,7 @@ public class NewsProcessor implements PageProcessor {
     }
     NewsStore.addNewsList(newsList,SiteEnum.BINANCE.getTypeCode());
   }
+
 
   private List<News> parseBinance(Page page) {
     List<News> newsList = new ArrayList<>();
