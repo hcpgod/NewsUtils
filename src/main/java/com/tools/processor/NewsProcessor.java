@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tools.download.DownloadFile;
 import com.tools.enums.SiteEnum;
 import com.tools.pojo.News;
+import com.tools.util.UserAgentUtil;
 import com.tools.utils.NewsStore;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -31,7 +32,7 @@ public class NewsProcessor implements PageProcessor {
 
 
   static Site site = Site.me()
-          .addHeader("User-Agent","apifox/1.0.0 (https://www.apifox.cn)")
+          .addHeader("User-Agent", UserAgentUtil.getAgent())
           .setCharset("utf-8")
           .setTimeOut(10000);
 

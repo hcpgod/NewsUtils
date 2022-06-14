@@ -40,6 +40,7 @@ public class DownloadFile extends HttpClientDownloader {
         logger.error("页面请求失败，url：{}", request.getUrl());
     }
 
+    @Override
     public Page download(Request request, Task task) {
         if (task != null && task.getSite() != null) {
             CloseableHttpResponse httpResponse = null;
@@ -64,9 +65,7 @@ public class DownloadFile extends HttpClientDownloader {
                 if (httpResponse != null) {
                     EntityUtils.consumeQuietly(httpResponse.getEntity());
                 }
-
             }
-
             return var9;
         } else {
             throw new NullPointerException("task or site can not be null");
