@@ -1,16 +1,12 @@
 package com.tools.utils;
 
 import cn.hutool.core.collection.CollectionUtil;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.Reader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
 
+import java.io.*;
+import java.net.URL;
+import java.util.*;
+
+import com.tools.Run;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * @author hcp
  */
-@Slf4j
 public class UserAgentUtil {
   private static final List<String> agentList = new ArrayList<>();
   private static Random random = new Random();
@@ -33,16 +28,23 @@ public class UserAgentUtil {
 
   public static boolean init() {
     try{
-      log.error("开始读取配置");
       HashSet<String> set = new HashSet<>();
-      URL user_agent_list = new UserAgentUtil().getClass().getResource("/user_agent_list");
-      File file = new File(user_agent_list.getPath());
-      Reader reader = new FileReader(file);
-      BufferedReader bufferedReader = new BufferedReader(reader);
+
+      System.out.println("开始读取配置");
+      String path = new Run().getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+      String[] pathSplit = path.split("/");
+      String jarName = pathSplit[pathSplit.length - 1];
+      String jarPath = path.replace(jarName, "");
+      String pathName=jarPath+"config.properties";
+      Properties properties = new Properties();
+      File file = new File(pathName);
+      FileInputStream fis = new FileInputStream(file);
+      InputStreamReader inputStreamReader = new InputStreamReader(fis, "utf-8");
+      BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
       String s = bufferedReader.readLine();
       System.out.println(bufferedReader.lines());
       while (s != null){
-        log.error(s);
+        System.out.println(s);
         if (StringUtils.isNotEmpty(s)){
           set.add(s);
         }

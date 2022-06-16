@@ -103,6 +103,7 @@ public class Run {
             inputStreamReader = new InputStreamReader(fis, "utf-8");
             properties.load(inputStreamReader);
             Run.properties = properties;
+            System.out.println(properties.size());
         } catch (Exception e) {
             logger.error("配置文件错误，请检查config.properties文件");
         }finally {
