@@ -11,11 +11,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author hcp
  */
+@Slf4j
 public class UserAgentUtil {
   private static final List<String> agentList = new ArrayList<>();
   private static Random random = new Random();
@@ -30,6 +33,7 @@ public class UserAgentUtil {
 
   public static boolean init() {
     try{
+      log.error("开始读取配置");
       HashSet<String> set = new HashSet<>();
       URL user_agent_list = new UserAgentUtil().getClass().getResource("/user_agent_list");
       File file = new File(user_agent_list.getPath());
@@ -38,6 +42,7 @@ public class UserAgentUtil {
       String s = bufferedReader.readLine();
       System.out.println(bufferedReader.lines());
       while (s != null){
+        log.error(s);
         if (StringUtils.isNotEmpty(s)){
           set.add(s);
         }
