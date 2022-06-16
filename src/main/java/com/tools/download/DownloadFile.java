@@ -1,8 +1,7 @@
 package com.tools.download;
 
-import com.tools.util.UserAgentUtil;
+import com.tools.utils.UserAgentUtil;
 import com.tools.utils.HttpClientUtil;
-import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;

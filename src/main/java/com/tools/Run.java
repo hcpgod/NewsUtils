@@ -7,7 +7,7 @@ import com.tools.message.MessageNotify;
 import com.tools.message.impl.ServerJiang;
 import com.tools.pojo.News;
 import com.tools.processor.NewsProcessor;
-import com.tools.util.UserAgentUtil;
+import com.tools.utils.UserAgentUtil;
 import com.tools.utils.NewsStore;
 import com.tools.utils.Spider;
 import org.apache.commons.lang3.StringUtils;
@@ -16,12 +16,9 @@ import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Request;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 

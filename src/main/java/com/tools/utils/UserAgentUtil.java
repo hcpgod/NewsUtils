@@ -1,18 +1,16 @@
-package com.tools.util;
+package com.tools.utils;
 
 import cn.hutool.core.collection.CollectionUtil;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Stream;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -26,7 +24,8 @@ public class UserAgentUtil {
     if (CollectionUtil.isEmpty(agentList)){
       init();
     }
-    return agentList.get(random.nextInt(agentList.size()));
+    int i = (int) (1 + Math.random() * (agentList.size() + 1));
+    return agentList.get(i);
   }
 
   public static boolean init() {
