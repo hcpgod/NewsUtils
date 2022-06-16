@@ -1,7 +1,9 @@
 package com.tools.message.impl;
 
+import com.tools.enums.SiteEnum;
 import com.tools.message.MessageNotify;
 import com.tools.pojo.News;
+import com.tools.utils.GTUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
@@ -61,6 +63,21 @@ public class ServerJiang extends MessageNotify {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private News transData(News news){
+        if (! news.getSite().equals(SiteEnum.MEXC.getSiteCode())){
+            return news;
+        }
+        String title = news.getNewsTitle();
+        GTUtil g = GTUtil.getInstance();
+        try {
+            String result = g.translateText(title, "auto", "zh_cn");
+            news.setNewsTitle(result);
+        } catch (Exception e) {
+            System.out.println("谷歌翻译接口调用失败！");
+        }
+        return news;
     }
 
 }
