@@ -1,7 +1,10 @@
 package com.tools.download;
 
+import com.tools.util.UserAgentUtil;
 import com.tools.utils.HttpClientUtil;
+import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
@@ -51,6 +54,8 @@ public class DownloadFile extends HttpClientDownloader {
             Page var9;
             try {
                 this.logger.info("开始下载页面，url  {}",request.getUrl());
+                HttpUriRequest httpUriRequest = requestContext.getHttpUriRequest();
+                httpUriRequest.addHeader("User-Agent",UserAgentUtil.getAgent());
                 httpResponse = httpClient.execute(requestContext.getHttpUriRequest(), requestContext.getHttpClientContext());
                 page = this.handleResponse(request, request.getCharset() != null ? request.getCharset() : task.getSite().getCharset(), httpResponse, task);
                 this.onSuccess(request);

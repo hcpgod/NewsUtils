@@ -12,11 +12,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,9 +22,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ServerJiang extends MessageNotify {
     private final String SendKey;
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private final String titleFormat;
     private final String contentFormat;
+    private final String channel;
 
     @Override
     public void sendMessage(News news) {
@@ -54,11 +52,10 @@ public class ServerJiang extends MessageNotify {
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("title", title));
         params.add(new BasicNameValuePair("desp", desp));
-        params.add(new BasicNameValuePair("channel", "66|9"));
+        params.add(new BasicNameValuePair("channel", channel));
         post.setEntity(new UrlEncodedFormEntity(params, StandardCharsets.UTF_8));
         try {
             HttpResponse response = client.execute(post);
-            String res = EntityUtils.toString(response.getEntity());
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {

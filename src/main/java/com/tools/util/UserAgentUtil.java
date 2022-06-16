@@ -32,15 +32,17 @@ public class UserAgentUtil {
   public static boolean init() {
     try{
       HashSet<String> set = new HashSet<>();
-      URL user_agent_list = new UserAgentUtil().getClass().getResource("user_agent_list");
+      URL user_agent_list = new UserAgentUtil().getClass().getResource("/user_agent_list");
       File file = new File(user_agent_list.getPath());
       Reader reader = new FileReader(file);
       BufferedReader bufferedReader = new BufferedReader(reader);
       String s = bufferedReader.readLine();
+      System.out.println(bufferedReader.lines());
       while (s != null){
         if (StringUtils.isNotEmpty(s)){
           set.add(s);
         }
+        s = bufferedReader.readLine();
       }
       agentList.addAll(set);
       return true;

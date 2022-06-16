@@ -42,6 +42,7 @@ public class NewsStore {
    * */
   public static void addNewsList(List<News> newsSet,String type){
     if (CollectionUtil.isEmpty(newsSet)){
+      System.out.println("无数据");
       return;
     }
     boolean notifyFlag = true;

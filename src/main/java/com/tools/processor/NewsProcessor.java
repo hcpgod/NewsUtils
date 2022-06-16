@@ -6,7 +6,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.tools.download.DownloadFile;
 import com.tools.enums.SiteEnum;
 import com.tools.pojo.News;
-import com.tools.util.UserAgentUtil;
 import com.tools.utils.NewsStore;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,13 +26,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NewsProcessor implements PageProcessor {
   Logger logger = LoggerFactory.getLogger(DownloadFile.class);
-  private final int Intervals = 10000;
   private List<String> codeList;
 
 
   static Site site = Site.me()
-          .addHeader("User-Agent", UserAgentUtil.getAgent())
           .setCharset("utf-8")
+          .setRetryTimes(3)
+          .setRetrySleepTime(1)
+          .setCycleRetryTimes(3)
           .setTimeOut(10000);
 
   @Override
