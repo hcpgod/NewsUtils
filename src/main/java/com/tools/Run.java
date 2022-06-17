@@ -134,7 +134,7 @@ public class Run {
         spider = Spider.create(new NewsProcessor());
         spider.setDownloader(new DownloadFile());
         spider.setEmptySleepTime(1000);
-        spider.startUrls(siteList).thread(6).start();
+        spider.startUrls(siteList).thread(3).start();
     }
 
     public static void addRequest(String url){
