@@ -44,7 +44,6 @@ public class NewsProcessor implements PageProcessor {
     String siteCode = siteEnum.getSiteCode();
     String typeCode = siteEnum.getTypeCode();
     List<Selectable> nodes = parseList(page,siteEnum);
-    System.out.println("开始解析"+siteEnum.getSiteName());
     if (siteCode.equals("binance")){
       List<News> news = parseBinance(page);
       NewsStore.addNewsList(news,typeCode);
@@ -64,11 +63,6 @@ public class NewsProcessor implements PageProcessor {
       news.setType(typeCode);
       news.setSite(siteCode);
       newsList.add(news);
-    }
-    if (newsList.size()>0){
-      System.out.println("解析成功："+siteEnum.getSiteName());
-    }else{
-      System.out.println("解析失败："+siteEnum.getSiteName());
     }
     NewsStore.addNewsList(newsList,SiteEnum.BINANCE.getTypeCode());
   }
