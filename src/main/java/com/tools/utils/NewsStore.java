@@ -45,6 +45,7 @@ public class NewsStore {
       System.out.println("无数据");
       return;
     }
+    System.out.println(newsSet.get(0).getSite()+"拉取成功");
     boolean notifyFlag = true;
     List<News> newsList = hashMap.get(type);
     if (CollectionUtil.isEmpty(newsList) || newsSet.size()>10){
