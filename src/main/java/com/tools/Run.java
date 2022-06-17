@@ -54,7 +54,7 @@ public class Run {
         // 开启页面抓取任务
         doTask();
         // 发放任务任务
-        ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(2);
+        ScheduledThreadPoolExecutor scheduled = new ScheduledThreadPoolExecutor(3);
         scheduled.scheduleAtFixedRate(() -> addUrlSchedule(), 0, Intervals, TimeUnit.SECONDS);
     }
 
