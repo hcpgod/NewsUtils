@@ -39,8 +39,8 @@ public class Run {
     static List<String> siteList = new ArrayList<>();
     static {
         siteList.add("https://support.mexc.com/hc/en-001/sections/360000547811-New-Listings");
-        siteList.add("https://help.hoorhi.shop/hc/zh-cn/sections/6541592498201-%E6%96%B0%E5%B8%81%E4%B8%8A%E7%BA%BF");
-        siteList.add("https://www.binance.com/zh-CN/support/announcement/c-48?navId=48");
+//        siteList.add("https://help.hoorhi.shop/hc/zh-cn/sections/6541592498201-%E6%96%B0%E5%B8%81%E4%B8%8A%E7%BA%BF");
+//        siteList.add("https://www.binance.com/zh-CN/support/announcement/c-48?navId=48");
     }
 
     public static void main(String[] args) {

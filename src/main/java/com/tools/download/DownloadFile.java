@@ -62,6 +62,7 @@ public class DownloadFile extends HttpClientDownloader {
                 Page var8 = page;
                 return var8;
             } catch (IOException var13) {
+                System.out.println(var13);
                 this.logger.warn("页面下载失败，url {} ", request.getUrl(), var13);
                 this.onError(request);
                 var9 = page;
