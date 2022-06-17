@@ -1,15 +1,17 @@
 package com.tools.utils;
 
 import cn.hutool.core.collection.CollectionUtil;
-
-import java.io.*;
-import java.net.URL;
-import java.util.*;
-
 import com.tools.Run;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 
 /**
  * @author hcp
@@ -22,29 +24,25 @@ public class UserAgentUtil {
     if (CollectionUtil.isEmpty(agentList)){
       init();
     }
-    int i = (int) (1 + Math.random() * (agentList.size() + 1));
+//    int i = (int) (1 + Math.random() * (agentList.size() + 1));
+    int i = random.nextInt(agentList.size());
     return agentList.get(i);
   }
 
   public static boolean init() {
     try{
       HashSet<String> set = new HashSet<>();
-
-      System.out.println("开始读取配置");
       String path = new Run().getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
       String[] pathSplit = path.split("/");
       String jarName = pathSplit[pathSplit.length - 1];
       String jarPath = path.replace(jarName, "");
-      String pathName=jarPath+"config.properties";
-      Properties properties = new Properties();
+      String pathName=jarPath+"user_agent_list";
       File file = new File(pathName);
       FileInputStream fis = new FileInputStream(file);
       InputStreamReader inputStreamReader = new InputStreamReader(fis, "utf-8");
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
       String s = bufferedReader.readLine();
-      System.out.println(bufferedReader.lines());
       while (s != null){
-        System.out.println(s);
         if (StringUtils.isNotEmpty(s)){
           set.add(s);
         }
